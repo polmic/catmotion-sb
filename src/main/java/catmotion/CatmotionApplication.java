@@ -8,10 +8,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class CatmotionApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CatmotionApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CatmotionApplication.class, args);
+    }
 
 }
-
-//https://www.favicon.cc/?action=icon&file_id=422699

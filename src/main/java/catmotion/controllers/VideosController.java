@@ -1,7 +1,6 @@
 package catmotion.controllers;
 
 import catmotion.models.VideoModel;
-import catmotion.repositories.VideosRepository;
 import catmotion.services.VideosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -16,24 +15,20 @@ import java.io.InputStream;
 import java.util.List;
 
 @RestController
+@RequestMapping("/videos")
 public class VideosController {
 
     @Autowired
     VideosService videosService;
 
-    @Autowired
-    VideosRepository videosRepository;
-
-    @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/videos")
+    @GetMapping
     @ResponseBody
     public ResponseEntity<List<VideoModel>> getAllVideos() {
         List<VideoModel> videos = videosService.getAllVideos();
         return new ResponseEntity<>(videos, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/videos/stream/{id}")
+    @GetMapping("/stream/{id}")
     @ResponseBody
     public ResponseEntity<InputStreamResource> streamVideo(@PathVariable("id") String id) {
         VideoModel video = videosService.getVideoById(id);
@@ -50,8 +45,7 @@ public class VideosController {
         return new ResponseEntity<>(new InputStreamResource(inputStream), headers, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @DeleteMapping("/videos/{id}")
+    @DeleteMapping("/{id}")
     @ResponseBody
     public ResponseEntity<Void> deleteById(@PathVariable("id") String id) {
         videosService.deleteVideoById(id);

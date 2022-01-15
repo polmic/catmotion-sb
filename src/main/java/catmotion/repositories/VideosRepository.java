@@ -10,13 +10,13 @@ import java.util.List;
 @Repository
 public interface VideosRepository extends MongoRepository<VideoModel, String> {
 
-    @Query(value="{}", fields="{data : 0}")
+    @Query(value = "{}", fields = "{data : 0}")
     List<VideoModel> findAll();
 
-    @Query(value="{name:'?0'}")
+    @Query(value = "{name:'?0'}")
     VideoModel findItemByName(String name);
 
-    @Query(value="{id:'?0'}")
+    @Query(value = "{id:'?0'}")
     VideoModel findItemById(String id);
 
 }
