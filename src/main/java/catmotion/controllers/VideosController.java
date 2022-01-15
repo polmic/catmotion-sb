@@ -10,7 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -30,10 +30,8 @@ public class VideosController {
 
     @GetMapping("/stream/{id}")
     @ResponseBody
-    public ResponseEntity<InputStreamResource> streamVideo(@PathVariable("id") String id) {
-        VideoModel video = videosService.getVideoById(id);
-        InputStream inputStream = new ByteArrayInputStream(video.getData());
-
+    public ResponseEntity<InputStreamResource> streamVideo(@PathVariable("id") String id) throws IOException {
+        InputStream inputStream = videosService.getVideoStreamById(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.valueOf("video/mkv"));
         headers.set("Accept-Ranges", "bytes");
@@ -41,7 +39,6 @@ public class VideosController {
         headers.set("Cache-Control", "no-cache, no-store");
         headers.set("Connection", "keep-alive");
         headers.set("Content-Transfer-Encoding", "binary");
-
         return new ResponseEntity<>(new InputStreamResource(inputStream), headers, HttpStatus.OK);
     }
 
