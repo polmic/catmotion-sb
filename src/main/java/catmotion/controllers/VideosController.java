@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/videos")
 public class VideosController {
